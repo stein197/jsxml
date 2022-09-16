@@ -35,9 +35,9 @@ export default class Builder {
 		this.nodes.push(content);
 	}
 
-	public minify(): string {}
+	public minify(): string {
+
+	}
 
 	public prettify(): string {}
-
-	public dom(): Element[] {}
 }
