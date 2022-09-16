@@ -12,7 +12,9 @@ export default class Builder {
 
 	public e(name: string, a, b): void {}
 
-	public c(content: Content): void {}
+	public c(content: Content): void {
+		this.nodes.push(content);
+	}
 
 	public minify(): string {}
 
