@@ -7,9 +7,9 @@ export default class Builder {
 
 	private readonly nodes: Node[] = [];
 
-	public e(name: string, attributes?: ObjectMap<string>, content?: Handler | Content): void;
+	public e(name: string, attributes?: ObjectMap<string>, content?: Handler | Content | Builder): void;
 
-	public e(name: string, content?: Handler | Content): void;
+	public e(name: string, content?: Handler | Content | Builder): void;
 
 	public e(name: string, a?, b?): void {}
 
