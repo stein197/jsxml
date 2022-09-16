@@ -11,7 +11,25 @@ export default class Builder {
 
 	public e(name: string, content?: Handler | Content | Builder): void;
 
-	public e(name: string, a?, b?): void {}
+	public e(name: string, a?, b?): void {
+		const attributes = typeof a === "object" ? a : typeof b === "object" ? b : null;
+		const content = typeof a !== "object" ? a : typeof b !== "object" ? b : null;
+		let children: Node[] | null;
+		if (content) {
+			if (typeof content === "function") {
+				const builder = new Builder();
+				content(builder);
+				children = builder.nodes;
+			} else if (content instanceof Builder) {
+				children = content.nodes;
+			} else {
+				children = [content];
+			}
+		} else {
+			children = null;
+		}
+		this.nodes.push([name, attributes, children]);
+	}
 
 	public c(content: Content): void {
 		this.nodes.push(content);
