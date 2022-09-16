@@ -1,1 +1,6 @@
-export default function jsxml(handler: (e: any) => void): any {}
+import Builder from "./src/Builder";
+import type {Handler} from "./src/Handler";
+
+export default function jsxml(handler: Handler): Builder {
+	return new Builder();
+}
