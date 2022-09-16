@@ -2,6 +2,8 @@ import type {ObjectMap} from "@stein197/ts-util";
 import type {Handler} from "./Handler";
 import type {Content} from "./Content";
 import type {Node} from "./Node";
+import type {Options} from "./Options";
+import * as util from "./util";
 
 export default class Builder {
 
@@ -35,9 +37,7 @@ export default class Builder {
 		this.nodes.push(content);
 	}
 
-	public minify(): string {
-
+	public stringify(options?: Partial<Options>): string {
+		return util.stringify(this.nodes, options, 0);
 	}
-
-	public prettify(): string {}
 }
