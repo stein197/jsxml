@@ -1,0 +1,23 @@
+{
+  "name": "@stein197/jsxml",
+  "version": "0.1.0",
+  "description": "XML generator",
+  "main": "index.js",
+  "devDependencies": {
+    "typescript": "4.8.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stein197/jsxml.git"
+  },
+  "keywords": [
+    "xml",
+    "html"
+  ],
+  "author": "Nail' Gafarov <nil20122013@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stein197/jsxml/issues"
+  },
+  "homepage": "https://github.com/stein197/jsxml#readme"
+}

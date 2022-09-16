@@ -1,0 +1,1 @@
+export default function jsxml(handler: (e: any) => void): any {}
