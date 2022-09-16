@@ -28,7 +28,7 @@ export default class Builder {
 		} else {
 			children = null;
 		}
-		this.nodes.push([name, attributes, children]);
+		this.nodes.push([name.toLowerCase(), attributes, children]);
 	}
 
 	public c(content: Content): void {
