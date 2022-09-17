@@ -10,7 +10,8 @@
 		"allowUnusedLabels": false,
 		"moduleResolution": "node",
 		"resolveJsonModule": true,
-		"importsNotUsedAsValues": "error"
+		"importsNotUsedAsValues": "error",
+		"allowSyntheticDefaultImports": true
 	},
 	"include": [
 		"*.ts"

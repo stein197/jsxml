@@ -21,7 +21,7 @@ const HTML_SELFCLOSING_TAGS: string[] = [
 	"wbr"
 ];
 
-const DEFAULT_OPTIONS: Options = {
+export const DEFAULT_OPTIONS: Options = {
 	xml: false,
 	minify: true
 };

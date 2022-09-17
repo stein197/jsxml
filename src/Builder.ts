@@ -37,7 +37,7 @@ export default class Builder {
 		this.nodes.push(content);
 	}
 
-	public stringify(options?: Partial<Options>): string {
-		return util.stringify(this.nodes, options, 0);
+	public stringify(options: Partial<Options> = util.DEFAULT_OPTIONS): string {
+		return util.stringify(this.nodes, options === util.DEFAULT_OPTIONS ? util.DEFAULT_OPTIONS : {...util.DEFAULT_OPTIONS, ...options}, 0);
 	}
 }
