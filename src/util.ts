@@ -1,5 +1,5 @@
-import type {Node} from "./Node";
-import type {Options} from "./Options";
+import type {ObjectMap} from "@stein197/ts-util";
+import type Builder from "./Builder";
 
 const HTML_SELFCLOSING_TAGS: string[] = [
 	"area",
@@ -61,3 +61,11 @@ export function stringify(nodes: Node[], options: Options, depth: number): strin
 	}
 	return result;
 }
+
+export type Content = number | string;
+export type Options = {
+	mode: "html" | "xml";
+	output: "prettified" | "minified"
+}
+export type Handler = (b: Builder) => void;
+export type Node = Content | [name: string, attributes: ObjectMap<string> | null, children: Node[] | null];
