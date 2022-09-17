@@ -19,3 +19,7 @@ jsxml(b => {
 	});
 });
 ```
+
+## NPM scripts
+- `compile` - compiles TypeScript source code
+- `test` - runs unit tests
