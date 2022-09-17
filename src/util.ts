@@ -59,10 +59,28 @@ export function stringify(nodes: Node[], options: Options, depth: number): strin
 	return result;
 }
 
+/**
+ * Plain content.
+ */
 export type Content = number | string;
+
+/**
+ * Options to use in {@link Builder.stringify()} method.
+ */
 export type Options = {
+
+	/**
+	 * Mode to use. XML mode means that elements without children will be self-closed. In HTML mode, those tags that
+	 * cannot be selfclosed will have a closing tag after the opening one.
+	 */
 	mode: "html" | "xml";
+
+	/**
+	 * Minified output trims all newlines and tabs while `prettified` returns formatted string with `\t` and `\n`.
+	 */
 	output: "prettified" | "minified"
 }
+
 export type Handler = (b: Builder) => void;
+
 export type Node = Content | [name: string, attributes: ObjectMap<string> | null, children: Node[] | null];
