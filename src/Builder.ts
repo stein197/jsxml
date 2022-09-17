@@ -40,4 +40,8 @@ export default class Builder {
 	public stringify(options: Partial<Options> = util.DEFAULT_OPTIONS): string {
 		return util.stringify(this.nodes, options === util.DEFAULT_OPTIONS ? util.DEFAULT_OPTIONS : {...util.DEFAULT_OPTIONS, ...options}, 0);
 	}
+
+	public toString(): string {
+		return this.stringify();
+	}
 }
