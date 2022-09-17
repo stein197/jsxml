@@ -22,14 +22,16 @@ const HTML_SELFCLOSING_TAGS: string[] = [
 ];
 
 export const DEFAULT_OPTIONS: Options = {
-	xml: false,
-	minify: true
+	mode: "html",
+	output: "minified"
 };
 
 export function stringify(nodes: Node[], options: Options, depth: number): string {
 	let result = "";
-	const tabulation = options.minify ? "" : "\t".repeat(depth);
-	const lf = options.minify ? "" : "\n";
+	const isMinified = options.output === "minified";
+	const isXml = options.mode === "xml";
+	const tabulation = isMinified ? "" : "\t".repeat(depth);
+	const lf = isMinified ? "" : "\n";
 	const nextDepth = depth + 1;
 	for (const node of nodes) {
 		if (!Array.isArray(node)) {
@@ -42,7 +44,7 @@ export function stringify(nodes: Node[], options: Options, depth: number): strin
 			if (nodeAttrs)
 				result += " " + Object.entries(nodeAttrs).map(([k, v]) => `${k}="${v}"`).join(" ");
 			const hasChildren = nodeChildren && nodeChildren.length;
-			if (!hasChildren && (options.xml || HTML_SELFCLOSING_TAGS.includes(nodeName))) {
+			if (!hasChildren && (isXml || HTML_SELFCLOSING_TAGS.includes(nodeName))) {
 				result += "/>";
 			} else if (hasChildren && nodeChildren.length === 1 && !Array.isArray(nodeChildren[0])) {
 				result += `>${nodeChildren[0]}</${nodeName}>`;

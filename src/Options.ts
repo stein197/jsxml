@@ -1,4 +1,4 @@
 export type Options = {
-	xml: boolean;
-	minify: boolean;
+	mode: "html" | "xml";
+	output: "prettified" | "minified"
 }
