@@ -38,25 +38,22 @@ export function stringify(nodes: Node[], options: Options, depth: number): strin
 			result += tabulation + node + lf;
 			continue;
 		}
-		if (Array.isArray(node)) {
-			const [nodeName, nodeAttrs, nodeChildren] = node;
-			result += `<${nodeName}`;
-			if (nodeAttrs)
-				result += " " + Object.entries(nodeAttrs).map(([k, v]) => `${k}="${v}"`).join(" ");
-			const hasChildren = nodeChildren && nodeChildren.length;
-			if (!hasChildren && (isXml || HTML_SELFCLOSING_TAGS.includes(nodeName))) {
-				result += "/>";
-			} else if (hasChildren && nodeChildren.length === 1 && !Array.isArray(nodeChildren[0])) {
-				result += `>${nodeChildren[0]}</${nodeName}>`;
-			} else if (!hasChildren) {
-				result += `></${nodeName}>`;
-			} else {
-				result += ">" + lf;
-				result += stringify(nodeChildren, options, nextDepth);
-				result += tabulation + `</${nodeName}>` + lf;
-			}
+		const [nodeName, nodeAttrs, nodeChildren] = node;
+		result += tabulation + `<${nodeName}`;
+		if (nodeAttrs) {
+			const entries = Object.entries(nodeAttrs);
+			if (entries.length)
+				result += " " + entries.map(([k, v]) => `${k}="${v}"`).join(" ");
+		}
+		const hasChildren = nodeChildren && nodeChildren.length;
+		if (!hasChildren && (isXml || HTML_SELFCLOSING_TAGS.includes(nodeName))) {
+			result += "/>" + lf;
+		} else if (hasChildren && nodeChildren.length === 1 && !Array.isArray(nodeChildren[0])) {
+			result += `>${nodeChildren[0]}</${nodeName}>` + lf;
+		} else if (!hasChildren) {
+			result += `></${nodeName}>` + lf;
 		} else {
-			result += tabulation + node + lf;
+			result += ">" + lf + stringify(nodeChildren, options, nextDepth) + tabulation + `</${nodeName}>` + lf;
 		}
 	}
 	return result;

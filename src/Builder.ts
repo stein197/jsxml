@@ -10,8 +10,8 @@ export default class Builder {
 	public e(name: string, content?: util.Handler | util.Content | Builder): void;
 
 	public e(name: string, a?, b?): void {
-		const attributes = typeof a === "object" ? a : typeof b === "object" ? b : null;
-		const content = typeof a !== "object" ? a : typeof b !== "object" ? b : null;
+		const content = typeof a !== "object" || a instanceof Builder ? a : typeof b !== "object" || b instanceof Builder ? b : null;
+		const attributes = typeof a === "object" && !(a instanceof Builder) ? a : typeof b === "object" && !(b instanceof Builder) ? b : null;
 		let children: util.Node[] | null;
 		if (content) {
 			if (typeof content === "function") {
