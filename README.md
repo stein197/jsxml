@@ -18,6 +18,14 @@ jsxml(b => {
 		b.e("body");
 	});
 });
+
+// Or use methods corresponding to tha tag names. HTML, SVG and MathML tags are supported
+jsxml(_ => {
+	_.html({lang: "en"}, _ => {
+		_.head();
+		_.body();
+	});
+});
 ```
 
 ## NPM scripts
