@@ -4,8 +4,8 @@
   "description": "XML generator",
   "main": "index.js",
   "scripts": {
-    "compile": "tsc",
-    "pretest": "npm run compile",
+    "ts": "tsc",
+    "pretest": "npm run ts",
     "test": "mocha test.js"
   },
   "devDependencies": {
