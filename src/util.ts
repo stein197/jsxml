@@ -78,7 +78,7 @@ export type Options = {
 	/**
 	 * Minified output trims all newlines and tabs while `prettified` returns formatted string with `\t` and `\n`.
 	 */
-	output: "prettified" | "minified"
+	output: "prettified" | "minified"; // TODO: Add more options to formatting
 }
 
 export type Handler = (b: Builder) => void;
