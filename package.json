@@ -6,13 +6,13 @@
   "scripts": {
     "clean": "del .\\*.js .\\*.map .\\*.d.ts 2>nul",
     "ts": "tsc",
-    "pretest": "npm run ts",
-    "test": "mocha test.js"
+    "test": "ts-mocha test.ts"
   },
   "devDependencies": {
     "@types/mocha": "9.1.1",
     "@types/node": "18.7.18",
     "mocha": "10.0.0",
+    "ts-mocha": "10.0.0",
     "typescript": "4.8.3"
   },
   "repository": {
