@@ -6,7 +6,7 @@ import type {Handler} from "./src/util";
  * @param handler 
  * @returns 
  */
-export default function jsxml(handler: Handler): Builder {
+export = function jsxml(handler: Handler): Builder {
 	const b = new Builder();
 	handler(b);
 	return b;
