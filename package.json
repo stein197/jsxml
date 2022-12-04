@@ -9,7 +9,6 @@
     "test": "mocha test.js"
   },
   "devDependencies": {
-    "@stein197/ts-util": "1.3.2",
     "@types/mocha": "9.1.1",
     "@types/node": "18.7.18",
     "mocha": "10.0.0",
@@ -28,5 +27,8 @@
   "bugs": {
     "url": "https://github.com/stein197/jsxml/issues"
   },
-  "homepage": "https://github.com/stein197/jsxml#readme"
+  "homepage": "https://github.com/stein197/jsxml#readme",
+  "dependencies": {
+    "@stein197/ts-util": "1.10.0"
+  }
 }
