@@ -4,6 +4,7 @@
   "description": "XML generator",
   "main": "index.js",
   "scripts": {
+    "clean": "del .\\*.js .\\*.map .\\*.d.ts 2>nul",
     "ts": "tsc",
     "pretest": "npm run ts",
     "test": "mocha test.js"

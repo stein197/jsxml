@@ -29,5 +29,6 @@ jsxml(_ => {
 ```
 
 ## NPM scripts
+- `clean` - deletes compiled files
 - `ts` - compiles TypeScript source code
 - `test` - runs unit tests
