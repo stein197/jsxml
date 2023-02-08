@@ -24,23 +24,9 @@ export default class Builder {
 	public e(name: string, content?: util.Handler | util.Content | Builder): void;
 
 	public e(name: string, a?, b?): void {
-		const content = typeof a !== "object" || a instanceof Builder ? a : typeof b !== "object" || b instanceof Builder ? b : null;
+		const children = typeof a !== "object" || a instanceof Builder ? a : typeof b !== "object" || b instanceof Builder ? b : null;
 		const attributes = typeof a === "object" && !(a instanceof Builder) ? a : typeof b === "object" && !(b instanceof Builder) ? b : null;
-		let children: util.Node[] | null;
-		if (content) {
-			if (typeof content === "function") {
-				const builder = new Builder();
-				content(builder);
-				children = builder.nodes;
-			} else if (content instanceof Builder) {
-				children = content.nodes;
-			} else {
-				children = [content];
-			}
-		} else {
-			children = null;
-		}
-		this.nodes.push([name.toLowerCase(), attributes, children]);
+		this.nodes.push([name.toLowerCase(), this.normalizeAttributes(attributes), this.normalizeChildren(children)]);
 	}
 
 	/**
@@ -2280,5 +2266,26 @@ export default class Builder {
 	 */
 	public toString(): string {
 		return this.stringify();
+	}
+
+	private normalizeChildren(content: util.Content | util.Handler | Builder | null): util.Node[] | null {
+		if (!content)
+			return null;
+		if (typeof content === "function") {
+			const builder = new Builder();
+			content(builder);
+			return builder.nodes;
+		} else if (content instanceof Builder) {
+			return content.nodes;
+		} else {
+			return [content];
+		}
+	}
+
+	private normalizeAttributes(attributes: ObjectMap<string>): ObjectMap<string> {
+		for (const k in attributes)
+			if (attributes[k] === "style" && typeof attributes[k] === "object")
+				attributes[k] = Object.entries(attributes[k]).map(entry => `${entry[0]}: ${String(entry[1])}`).join("; ");
+		return attributes;
 	}
 }
