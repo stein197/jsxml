@@ -1,5 +1,6 @@
 import "mocha";
-import * as assert from "assert";
+import * as assert from "node:assert";
+import * as jsdom from "jsdom";
 import jsxml from ".";
 
 it("Should return empty string when callback is empty", () => {
@@ -186,6 +187,28 @@ describe("API", () => {
 			});
 		}).toString(), "<element><element></element></element>");
 	});
-	it.skip("dom() Should return correct DOM structure");
-	it.skip("Should return correct result when calling specific DOM methods");
+	it("dom() Should return correct DOM structure", () => {
+		const dom = new jsdom.JSDOM();
+		const origDocument = globalThis.document;
+		globalThis.document = dom.window.document;
+		const xml = jsxml(_ => {
+			_.e("main", _ => {
+				_.e("p", "Hello, World!");
+			});
+		});
+		dom.window.document.body.append(xml.dom());
+		assert.equal(dom.window.document.body.innerHTML, "<main><p>Hello, World!</p></main>");
+		globalThis.document = origDocument;
+	});
+	it("Should return correct result when calling specific DOM methods", () => {
+		assert.equal(jsxml(_ => {
+			_.html({lang: "en"}, _ => {
+				_.head();
+				_.body({class: ["class-1", "class-2"]}, _ => {
+					// @ts-ignore
+					_.p({style: {color: "red", "font-size": "14px"}}, "Hello, World!");
+				});
+			})
+		}).stringify(), "<html lang=\"en\"><head></head><body class=\"class-1 class-2\"><p style=\"color: red; font-size: 14px\">Hello, World!</p></body></html>");
+	});
 });

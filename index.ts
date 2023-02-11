@@ -2333,8 +2333,8 @@ class Builder {
 	
 	private static normalizeAttributes(attributes: ObjectMap<string>): ObjectMap<string> {
 		for (const k in attributes)
-			if (attributes[k] === "style" && typeof attributes[k] === "object")
-				attributes[k] = Object.entries(attributes[k]).map(entry => `${entry[0]}: ${String(entry[1])}`).join("; ");
+			if (k === "style" && typeof attributes[k] === "object")
+				attributes[k] = Object.entries(attributes[k]).map(entry => `${entry[0]}: ${entry[1]}`).join("; ");
 			else if (Array.isArray(attributes[k]))
 				attributes[k] = (attributes[k] as unknown as any[]).join(" ");
 		return attributes;
@@ -2349,6 +2349,7 @@ class Builder {
 				for (const k in attributes)
 					element.setAttribute(k, attributes[k]);
 				element.append(...this.dom(children));
+				result.push(element);
 			} else {
 				result.push(String(node));
 			}
