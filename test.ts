@@ -186,4 +186,6 @@ describe("API", () => {
 			});
 		}).toString(), "<element><element></element></element>");
 	});
+	it.skip("dom() Should return correct DOM structure");
+	it.skip("Should return correct result when calling specific DOM methods");
 });

@@ -24,9 +24,9 @@ export default class Builder {
 	public e(name: string, content?: util.Handler | util.Content | Builder): void;
 
 	public e(name: string, a?, b?): void {
-		const children = typeof a !== "object" || a instanceof Builder ? a : typeof b !== "object" || b instanceof Builder ? b : null;
-		const attributes = typeof a === "object" && !(a instanceof Builder) ? a : typeof b === "object" && !(b instanceof Builder) ? b : null;
-		this.nodes.push([name.toLowerCase(), this.normalizeAttributes(attributes), this.normalizeChildren(children)]);
+		const children = typeof a !== "object" || a instanceof Builder ? a : typeof b !== "object" || b instanceof Builder ? b : [];
+		const attributes = typeof a === "object" && !(a instanceof Builder) ? a : typeof b === "object" && !(b instanceof Builder) ? b : {};
+		this.nodes.push([name.toLowerCase(), Builder.normalizeAttributes(attributes), Builder.normalizeChildren(children)]);
 	}
 
 	/**
@@ -2268,9 +2268,23 @@ export default class Builder {
 		return this.stringify();
 	}
 
-	private normalizeChildren(content: util.Content | util.Handler | Builder | null): util.Node[] | null {
+	/**
+	 * Returns the tree as a DOM structure.
+	 * @returns DOM.
+	 */
+	public dom(): string | Element | DocumentFragment {
+		const dom = Builder.dom(this.nodes);
+		if (dom.length === 1)
+			return dom[0];
+		const fragment = globalThis.document.createDocumentFragment();
+		for (const element of dom)
+			fragment.append(element);
+		return fragment;
+	}
+
+	private static normalizeChildren(content: util.Content | util.Handler | Builder): util.Node[] {
 		if (!content)
-			return null;
+			return [];
 		if (typeof content === "function") {
 			const builder = new Builder();
 			content(builder);
@@ -2282,10 +2296,28 @@ export default class Builder {
 		}
 	}
 
-	private normalizeAttributes(attributes: ObjectMap<string>): ObjectMap<string> {
+	private static normalizeAttributes(attributes: ObjectMap<string>): ObjectMap<string> {
 		for (const k in attributes)
 			if (attributes[k] === "style" && typeof attributes[k] === "object")
 				attributes[k] = Object.entries(attributes[k]).map(entry => `${entry[0]}: ${String(entry[1])}`).join("; ");
+			else if (Array.isArray(attributes[k]))
+				attributes[k] = (attributes[k] as unknown as any[]).join(" ");
 		return attributes;
+	}
+
+	private static dom(nodes: util.Node[]): (Element | string)[] {
+		const result: (Element | string)[] = [];
+		for (const node of nodes) {
+			if (Array.isArray(node)) {
+				const [name, attributes, children] = node;
+				const element = globalThis.document.createElement(name);
+				for (const k in attributes)
+					element.setAttribute(k, attributes[k]);
+				element.append(...this.dom(children));
+			} else {
+				result.push(String(node));
+			}
+		}
+		return result;
 	}
 }

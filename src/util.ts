@@ -40,11 +40,9 @@ export function stringify(nodes: Node[], options: Options, depth: number): strin
 		}
 		const [nodeName, nodeAttrs, nodeChildren] = node;
 		result += tabulation + `<${nodeName}`;
-		if (nodeAttrs) {
-			const entries = Object.entries(nodeAttrs);
-			if (entries.length)
-				result += " " + entries.map(([k, v]) => `${k}="${v}"`).join(" ");
-		}
+		const entries = Object.entries(nodeAttrs);
+		if (entries.length)
+			result += " " + entries.map(([k, v]) => `${k}="${v}"`).join(" ");
 		const hasChildren = nodeChildren && nodeChildren.length;
 		if (!hasChildren && (isXml || HTML_SELFCLOSING_TAGS.includes(nodeName))) {
 			result += "/>" + lf;
@@ -83,4 +81,4 @@ export type Options = {
 
 export type Handler = (b: Builder) => void;
 
-export type Node = Content | [name: string, attributes: ObjectMap<string> | null, children: Node[] | null];
+export type Node = Content | [name: string, attributes: ObjectMap<string>, children: Node[]];
