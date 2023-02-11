@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "clean": "del .\\*.js .\\*.map .\\*.d.ts 2>nul",
-    "ts": "tsc",
+    "build": "tsc",
     "test": "ts-mocha test.ts"
   },
   "devDependencies": {
@@ -30,6 +30,6 @@
   },
   "homepage": "https://github.com/stein197/jsxml#readme",
   "dependencies": {
-    "@stein197/ts-util": "1.10.0"
+    "@stein197/ts-util": "^1.10.0"
   }
 }

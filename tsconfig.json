@@ -14,7 +14,7 @@
 		"importsNotUsedAsValues": "error",
 		"allowSyntheticDefaultImports": true
 	},
-	"include": [
-		"*.ts"
+	"files": [
+		"index.ts"
 	]
 }

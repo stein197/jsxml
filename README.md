@@ -7,7 +7,7 @@ npm install @stein197/jsxml
 ```ts
 import jsxml from "@stein197/jsxml";
 
-jsxml(b => {
+const xml = jsxml(b => {
 	b.e("html", {lang: "en"}, b => {
 		b.e("head", b => {
 			b.e("meta", {charset: "UTF-8"});
@@ -20,15 +20,20 @@ jsxml(b => {
 });
 
 // Or use methods corresponding to tha tag names. HTML, SVG and MathML tags are supported
-jsxml(_ => {
+const xml = jsxml(_ => {
 	_.html({lang: "en"}, _ => {
 		_.head();
 		_.body();
 	});
 });
+
+// And then stringify it...
+console.log(xml.stringify({mode: "xml", output: "prettified"}));
+// ...or return DOM structure
+document.body.append(xml.dom());
 ```
 
 ## NPM scripts
 - `clean` - deletes compiled files
-- `ts` - compiles TypeScript source code
+- `build` - compiles TypeScript source code
 - `test` - runs unit tests
