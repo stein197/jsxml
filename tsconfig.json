@@ -12,7 +12,9 @@
 		"moduleResolution": "node",
 		"resolveJsonModule": true,
 		"importsNotUsedAsValues": "error",
-		"allowSyntheticDefaultImports": true
+		"allowSyntheticDefaultImports": true,
+		"sourceMap": true,
+		"inlineSources": true
 	},
 	"files": [
 		"index.ts"
